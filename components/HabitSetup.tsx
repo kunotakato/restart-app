@@ -1,6 +1,6 @@
 import { StatusNotice } from "@/components/StatusNotice";
 import type { NoticeKind } from "@/hooks/useRestartApp";
-import { NAME_ERROR_MESSAGES, SETUP_MESSAGE, STORAGE_NOTE } from "@/lib/messages";
+import { NAME_ERROR_MESSAGES, SETUP_MESSAGE, SETUP_MESSAGE_PARTS, STORAGE_NOTE } from "@/lib/messages";
 import { HABIT_NAME_MAX } from "@/lib/records";
 
 type Props = {
@@ -16,8 +16,12 @@ export function HabitSetup({ value, length, error, notice, onChange, onSubmit }:
   const over = length > HABIT_NAME_MAX;
   return (
     <section aria-labelledby="setup-heading" className="mx-auto max-w-xl rounded-2xl bg-card p-4">
-      <h2 id="setup-heading" className="text-xl font-bold">
-        {SETUP_MESSAGE}
+      <h2 id="setup-heading" aria-label={SETUP_MESSAGE} className="text-xl font-bold">
+        {SETUP_MESSAGE_PARTS.map((part) => (
+          <span key={part} aria-hidden="true" className="inline-block">
+            {part}
+          </span>
+        ))}
       </h2>
       <form
         className="mt-4"

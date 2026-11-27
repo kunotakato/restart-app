@@ -16,11 +16,11 @@ import {
 import { buildDashboard, type DashboardView } from "@/lib/view-model";
 import type { DailyStatus } from "@/types/restart";
 
-export type NoticeKind = "saved" | "saveFailed" | "dateChanged" | "conflict";
+export type NoticeKind = "reloaded" | "saved" | "saveFailed" | "dateChanged" | "conflict";
 
 export type RestartAppState =
   | { phase: "loading" }
-  | { phase: "error"; reason: LoadErrorReason; retry: () => void }
+  | { phase: "error"; reason: LoadErrorReason; retryAttempts: number; retry: () => void }
   | {
       phase: "setup";
       nameInput: string;
@@ -50,6 +50,7 @@ export function useRestartApp(): RestartAppState {
   const [notice, setNotice] = useState<NoticeKind | null>(null);
   const [nameInput, setNameInput] = useState("");
   const [nameError, setNameError] = useState<"empty" | "tooLong" | null>(null);
+  const [retryAttempts, setRetryAttempts] = useState(0);
 
   function apply(outcome: ActionOutcome) {
     switch (outcome.kind) {
@@ -82,7 +83,11 @@ export function useRestartApp(): RestartAppState {
     return {
       phase: "error",
       reason: load.reason,
+      retryAttempts,
       retry: () => {
+        // 成功すれば通常画面・初回画面で「もう一度読み込みました。」、失敗が続けばエラー画面で回数を表示する
+        setRetryAttempts((n) => n + 1);
+        setNotice("reloaded");
         notifyStorageChanged(); // getSnapshot を呼び直させ、読み込みを必ずやり直す
         refreshToday();
       },

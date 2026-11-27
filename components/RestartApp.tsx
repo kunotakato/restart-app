@@ -24,7 +24,9 @@ export function RestartApp() {
           </p>
         )}
 
-        {state.phase === "error" && <LoadError reason={state.reason} onRetry={state.retry} />}
+        {state.phase === "error" && (
+          <LoadError reason={state.reason} retryAttempts={state.retryAttempts} onRetry={state.retry} />
+        )}
 
         {state.phase === "setup" && (
           <HabitSetup

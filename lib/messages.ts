@@ -10,9 +10,12 @@ export const RESTART_MESSAGES: Record<MessageKey, string> = {
   startSmall: "今日の小さな一歩を始めましょう。",
 };
 
-export const SETUP_MESSAGE = "小さな一歩から始めましょう。";
+/** 狭い画面で「う。」だけが次の行に残らないよう、改行してよい位置で分けておく */
+export const SETUP_MESSAGE_PARTS = ["小さな一歩から", "始めましょう。"] as const;
+export const SETUP_MESSAGE = SETUP_MESSAGE_PARTS.join("");
 
 export const NOTICE_MESSAGES = {
+  reloaded: "もう一度読み込みました。",
   saved: "保存しました。",
   saveFailed: "記録を保存できませんでした。もう一度お試しください。",
   dateChanged: "日付が変わりました。今日の日付を確認して、もう一度選んでください。",
@@ -33,6 +36,10 @@ export const LOAD_ERROR_MESSAGES = {
   invalidShape: "保存データの内容が正しくないため、読み込めませんでした。",
   unsupportedVersion: "このアプリでは読み込めない形式の保存データです。",
 } as const;
+
+export function retryStillFailingMessage(attempts: number): string {
+  return `もう一度読み込みましたが、まだ読み込めませんでした（${attempts}回目）。`;
+}
 
 export const LOAD_ERROR_GUIDANCE =
   "保存データは消去していません。ブラウザの設定で、このサイトのデータやプライベートブラウズの設定を確認してから、もう一度読み込んでください。サイトデータを消去すると、これまでの記録はすべて失われます。";
