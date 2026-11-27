@@ -4,6 +4,8 @@
 
 途切れた習慣を、もう一度始めるための記録アプリです。1つの習慣について、今日できたかどうかを1タップで記録し、「再開できた回数」と累計の達成を見える形にします。
 
+**公開URL：https://restart-app-opal.vercel.app/**（登録不要。記録はお使いのブラウザの中だけに保存されます）
+
 ![スマートフォン表示](docs/screenshots/mobile.png)
 
 ## 開発背景
@@ -136,4 +138,5 @@ npm run start      # http://localhost:3000
 
 - [requirements.md](requirements.md)：要件定義書（原本）
 - [docs/requirements-addendum.md](docs/requirements-addendum.md)：実装計画のレビューで承認された追補
-- [docs/test-report.md](docs/test-report.md)：テスト結果（T01〜T36）
+- [docs/test-report.md](docs/test-report.md)：テスト結果（T01〜T36、公開環境での確認を含む）
+- [docs/backlog.md](docs/backlog.md)：今後の改善候補（未実装）
