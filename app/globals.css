@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+/* 承認済みデザインA（requirements.md 第6節）。テーマ切替なし */
+@theme {
+  --color-canvas: #101815;
+  --color-card: #1b3025;
+  --color-accent: #34d399;
+  --color-ink: #f8fafc;
+  --color-muted: #94a3b8;
+  --color-missed: #33413b;
+  --color-danger: #fca5a5;
+  --font-sans: system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+    "Yu Gothic UI", Meiryo, sans-serif;
+}
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+}
