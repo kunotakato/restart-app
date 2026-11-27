@@ -129,13 +129,15 @@ export function notifyStorageChanged(): void {
 
 export function subscribeStorage(onChange: () => void): () => void {
   listeners.add(onChange);
+  // 別タブの保存は storage イベントで受け取る
   const onStorage = (event: StorageEvent) => {
     if (event.key === STORAGE_KEY || event.key === null) onChange();
   };
-  window.addEventListener("storage", onStorage);
+  const hasWindow = typeof window !== "undefined";
+  if (hasWindow) window.addEventListener("storage", onStorage);
   return () => {
     listeners.delete(onChange);
-    window.removeEventListener("storage", onStorage);
+    if (hasWindow) window.removeEventListener("storage", onStorage);
   };
 }
 
